@@ -1,12 +1,6 @@
 FROM nvidia/cudagl:11.2.1-runtime-ubuntu20.04
 
 
-RUN echo 'Etc/UTC' > /etc/timezone && \
-    ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
-    apt-get update && \
-    apt-get install -q -y --no-install-recommends tzdata && \
-    rm -rf /var/lib/apt/lists/*
-
 # install packages
 RUN apt-get update && apt-get install -q -y --no-install-recommends \
     dirmngr \
@@ -30,8 +24,6 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C1CF6E31E6
 RUN rosdep init && \
   rosdep update --rosdistro $ROS_DISTRO
 
-ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
 
 ENV ROS_DISTRO noetic
 
