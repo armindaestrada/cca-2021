@@ -1,8 +1,28 @@
-FROM osrf/ros:noetic-desktop-full-focal
+FROM nvidia/cudagl:11.2.1-runtime-ubuntu20.04
+
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    build-essential \
+    python3-rosdep \
+    python3-rosinstall \
+    python3-vcstools \
+    && rm -rf /var/lib/apt/lists/*
+
+# bootstrap rosdep
+RUN rosdep init && \
+  rosdep update --rosdistro $ROS_DISTRO
+
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
+
+ENV ROS_DISTRO noetic
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ros-noetic-desktop-full=1.5.0-1* \
+    && rm -rf /var/lib/apt/lists/*
 
 USER root 
 Run printenv | grep ROS
-EXPOSE 80
+
 Run apt-get update 
 Run apt-get install ros-noetic-controller-manager
 Run apt-get install ros-noetic-ros-control -q -y
