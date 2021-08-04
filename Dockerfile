@@ -1,5 +1,5 @@
-FROM nvidia/cudagl:11.2.1-runtime-ubuntu20.04
-
+#FROM nvidia/cudagl:11.2.1-runtime-ubuntu20.04
+FROM osrf/ros:noetic-desktop-full-focal
 ENV DEBIAN_FRONTEND=noninteractive
 
 # install packages
